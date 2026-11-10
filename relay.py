@@ -80,14 +80,16 @@ def run_relay(in_ip: str, in_port: int, td_ip: str, td_port: int, live_ip: str, 
 
     out_sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     
+    # Send to both 8000 and 7000 so TouchDesigner receives on either default port
     td_addr = (td_ip, td_port)
+    td_alt_addr = (td_ip, 7000 if td_port != 7000 else 8000)
     live_addr = (live_ip, live_port)
 
     print(f"============================================================")
     print(f"  iOS Motion Controller OSC Relay")
     print(f"============================================================")
     print(f"  • Listening on:      {in_ip}:{in_port} (UDP)")
-    print(f"  • Relaying to TD:    {td_ip}:{td_port}")
+    print(f"  • Relaying to TD:    {td_ip}:{td_port} & {td_ip}:{td_alt_addr[1]}")
     print(f"  • Relaying to Live:  {live_ip}:{live_port}")
     print(f"  • Monitor Mode:      {'ENABLED' if monitor else 'DISABLED'}")
     print(f"============================================================")
@@ -103,8 +105,9 @@ def run_relay(in_ip: str, in_port: int, td_ip: str, td_port: int, live_ip: str, 
             now = time.time()
             pkt_count += 1
 
-            # Ultra-low-latency direct forward
+            # Ultra-low-latency direct forward to both TD ports and Live
             out_sock.sendto(data, td_addr)
+            out_sock.sendto(data, td_alt_addr)
             out_sock.sendto(data, live_addr)
 
             if monitor:

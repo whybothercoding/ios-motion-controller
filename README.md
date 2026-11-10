@@ -96,9 +96,9 @@ python3 relay.py --monitor
 6. Click **TARE** to center your preferred physical grip.
 
 ### Step 4: Open TouchDesigner Visuals
-1. Navigate to `touchdesigner/motion-visuals/`.
-2. Double-click **`motion_visuals.toe`** to open TouchDesigner.
-3. Tilt, bank, and turn your phone to fly through the generative nebula!
+1. Open TouchDesigner.
+2. Open **`touchdesigner/motion_visuals.toe`**.
+3. Tilt, bank, and turn your phone to fly through the generative cosmic nebula!
 
 ---
 

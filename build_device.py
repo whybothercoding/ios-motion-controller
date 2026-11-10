@@ -18,7 +18,10 @@ import shutil
 import sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-M4L_COMMON = os.path.join(HERE, "..", "finishing-kit", "m4l")
+if os.path.isfile(os.path.join(HERE, "amxd.py")):
+    M4L_COMMON = HERE
+else:
+    M4L_COMMON = os.path.join(HERE, "..", "common")
 if M4L_COMMON not in sys.path:
     sys.path.insert(0, M4L_COMMON)
 
